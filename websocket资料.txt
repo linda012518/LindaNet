@@ -1,0 +1,22 @@
+WebSocket 详解
+https://segmentfault.com/a/1190000012948613#articleHeader5 
+
+WebSocket协议深入探究
+https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247485465&amp;idx=1&amp;sn=d9fd30e63bebbb90ef5544ff1406e335&source=41#wechat_redirect
+
+
+Base64编解码及其C++实现
+https://blog.csdn.net/flushhip/article/details/82498670
+
+
+SHA1算法实现及详解
+https://blog.csdn.net/lwanttowin/article/details/70799146
+
+SHA1算法原理
+https://www.cnblogs.com/scu-cjx/p/6878853.html
+
+从原理上搞定编码-- Base64编码
+http://www.cnblogs.com/chengxiaohui/articles/3951129.html
+
+关于base64编码的原理及实现
+http://www.cnblogs.com/hongru/archive/2012/01/14/2321397.html

@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TcpServer", "TcpServer\TcpServer.vcxproj", "{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TcpClient", "TcpClient\TcpClient.vcxproj", "{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HttpServer", "HttpServer\HttpServer.vcxproj", "{CD8C303B-2C73-4782-8C28-E56726913187}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E177560B-87F0-4DAA-8EA7-878FCB513C32}"
+	ProjectSection(SolutionItems) = preProject
+		depends\include\base64.hpp = depends\include\base64.hpp
+		depends\include\Buffer.hpp = depends\include\Buffer.hpp
+		depends\include\CELL.hpp = depends\include\CELL.hpp
+		depends\include\Client.hpp = depends\include\Client.hpp
+		depends\include\Config.hpp = depends\include\Config.hpp
+		depends\include\Epoll.hpp = depends\include\Epoll.hpp
+		depends\include\EpollServer.hpp = depends\include\EpollServer.hpp
+		depends\include\FDSet.hpp = depends\include\FDSet.hpp
+		depends\include\HttpClientC.hpp = depends\include\HttpClientC.hpp
+		depends\include\HttpClientS.hpp = depends\include\HttpClientS.hpp
+		depends\include\INetEvent.hpp = depends\include\INetEvent.hpp
+		depends\include\KeyString.hpp = depends\include\KeyString.hpp
+		depends\include\Log.hpp = depends\include\Log.hpp
+		depends\include\MessageHeader.hpp = depends\include\MessageHeader.hpp
+		depends\include\NetWork.hpp = depends\include\NetWork.hpp
+		depends\include\SelectServer.hpp = depends\include\SelectServer.hpp
+		depends\include\Semaphore.hpp = depends\include\Semaphore.hpp
+		depends\include\Server.hpp = depends\include\Server.hpp
+		depends\include\sha1.hpp = depends\include\sha1.hpp
+		depends\include\SplitString.hpp = depends\include\SplitString.hpp
+		depends\include\Task.hpp = depends\include\Task.hpp
+		depends\include\TcpClient.hpp = depends\include\TcpClient.hpp
+		depends\include\TcpClientMgr.hpp = depends\include\TcpClientMgr.hpp
+		depends\include\TcpEpollClient.hpp = depends\include\TcpEpollClient.hpp
+		depends\include\TcpEpollServer.hpp = depends\include\TcpEpollServer.hpp
+		depends\include\TcpHttpClient.hpp = depends\include\TcpHttpClient.hpp
+		depends\include\TcpHttpServer.hpp = depends\include\TcpHttpServer.hpp
+		depends\include\TcpSelectClient.hpp = depends\include\TcpSelectClient.hpp
+		depends\include\TcpSelectServer.hpp = depends\include\TcpSelectServer.hpp
+		depends\include\TcpServer.hpp = depends\include\TcpServer.hpp
+		depends\include\TcpServerMgr.hpp = depends\include\TcpServerMgr.hpp
+		depends\include\Thread.hpp = depends\include\Thread.hpp
+		depends\include\Timestamp.hpp = depends\include\Timestamp.hpp
+		depends\include\WebSocketObject.hpp = depends\include\WebSocketObject.hpp
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Debug|x64.ActiveCfg = Debug|x64
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Debug|x64.Build.0 = Debug|x64
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Debug|x86.ActiveCfg = Debug|Win32
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Debug|x86.Build.0 = Debug|Win32
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Release|x64.ActiveCfg = Release|x64
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Release|x64.Build.0 = Release|x64
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Release|x86.ActiveCfg = Release|Win32
+		{0EF3C5F3-F715-4459-9D02-4DFCA9FB1FEE}.Release|x86.Build.0 = Release|Win32
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Debug|x64.ActiveCfg = Debug|x64
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Debug|x64.Build.0 = Debug|x64
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Debug|x86.ActiveCfg = Debug|Win32
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Debug|x86.Build.0 = Debug|Win32
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Release|x64.ActiveCfg = Release|x64
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Release|x64.Build.0 = Release|x64
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Release|x86.ActiveCfg = Release|Win32
+		{F732CCB5-00E8-4BD2-84AA-D98D8810BD57}.Release|x86.Build.0 = Release|Win32
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Debug|x64.ActiveCfg = Debug|x64
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Debug|x64.Build.0 = Debug|x64
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Debug|x86.ActiveCfg = Debug|Win32
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Debug|x86.Build.0 = Debug|Win32
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Release|x64.ActiveCfg = Release|x64
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Release|x64.Build.0 = Release|x64
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Release|x86.ActiveCfg = Release|Win32
+		{CD8C303B-2C73-4782-8C28-E56726913187}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

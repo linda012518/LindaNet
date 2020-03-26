@@ -1,0 +1,189 @@
+﻿#ifndef _CELL_BUFFER_HPP_
+#define _CELL_BUFFER_HPP_
+
+#include"CELL.hpp"
+
+namespace linda {
+	namespace io {
+		class Buffer
+		{
+		public:
+			Buffer(int nSize = 8192)
+			{
+				_nSize = nSize;
+				//多一位做结束符，缓冲区收满了的时候 read4socket 150行
+				_pBuff = new char[_nSize + 1];
+			}
+
+			~Buffer()
+			{
+				if (_pBuff)
+				{
+					delete[] _pBuff;
+					_pBuff = nullptr;
+				}
+			}
+
+			inline char* data()
+			{
+				return _pBuff;
+			}
+
+			inline int dataLen()
+			{
+				return _nLast;
+			}
+
+			inline int buffSize()
+			{
+				return _nSize;
+			}
+
+			inline bool canWrite(int size)
+			{
+				return size < _nSize - _nLast;
+			}
+
+			bool push(const char* pData, int nLen)
+			{
+				////写入大量数据不一定要放到内存中
+				////也可以存储到数据库或者磁盘等存储器中
+				//if (_nLast + nLen > _nSize)
+				//{
+				//	//需要写入的数据大于可用空间
+				//	int n = (_nLast + nLen) - _nSize;
+				//	//拓展BUFF
+				//	if (n < 8192)
+				//		n = 8192;
+				//	char* buff = new char[_nSize+n];
+				//	memcpy(buff, _pBuff, _nLast);
+				//	delete[] _pBuff;
+				//	_pBuff = buff;
+				//}
+
+				if (_nLast + nLen <= _nSize)
+				{
+					//将要发送的数据 拷贝到发送缓冲区尾部
+					memcpy(_pBuff + _nLast, pData, nLen);
+					//计算数据尾部位置
+					_nLast += nLen;
+
+					if (_nLast == SEND_BUFF_SZIE)
+					{
+						++_fullCount;
+					}
+
+					return true;
+				}
+				else {
+					++_fullCount;
+				}
+
+				return false;
+			}
+
+			void pop(int nLen)
+			{
+				int n = _nLast - nLen;
+				if (n > 0)
+				{
+					memcpy(_pBuff, _pBuff + nLen, n);
+				}
+				_nLast = n;
+				if (_fullCount > 0)
+					--_fullCount;
+			}
+
+			int write2socket(SOCKET sockfd)
+			{
+				int ret = 0;
+				//缓冲区有数据
+				if (_nLast > 0 && INVALID_SOCKET != sockfd)
+				{
+					//发送数据
+					ret = send(sockfd, _pBuff, _nLast, 0);
+					if (ret == 0)
+					{
+						CELLLog_Info("write2socket1:sockfd<%d> client socket was closed", sockfd);
+						return SOCKET_ERROR;
+					}
+					else if (ret < 0)
+					{
+						CELLLog_PError("write2socket1:sockfd<%d> nSize<%d> nLast<%d> ret<%d>", sockfd, _nSize, _nLast, ret);
+						return SOCKET_ERROR;
+					}
+					if (ret == _nLast)
+					{//_nLast=2000 实际发送ret=2000
+						//数据尾部位置清零
+						_nLast = 0;
+					}
+					else {
+						//_nLast=2000 实际发送ret=1000
+						//CELLLog_Info("write2socket2:sockfd<%d> nSize<%d> nLast<%d> ret<%d>", sockfd, _nSize, _nLast, ret);
+						_nLast -= ret;
+						memcpy(_pBuff, _pBuff + ret, _nLast);
+					}
+					_fullCount = 0;
+				}
+				return ret;
+			}
+
+			int read4socket(SOCKET sockfd)
+			{
+				if (_nSize - _nLast > 0)//要留一个结束符， 不能等于0
+				{
+					//接收客户端数据
+					char* szRecv = _pBuff + _nLast;
+					int nLen = (int)recv(sockfd, szRecv, _nSize - _nLast, 0);
+					if (nLen == 0)
+					{
+						CELLLog_Info("read4socket:sockfd<%d>  client socket was closed", sockfd);
+						return SOCKET_ERROR;
+					}
+					else if (nLen < 0)
+					{
+						CELLLog_PError("read4socket:sockfd<%d> nSize<%d> nLast<%d> nLen<%d>", sockfd, _nSize, _nLast, nLen);
+						return SOCKET_ERROR;
+					}
+					//消息缓冲区的数据尾部位置后移
+					_nLast += nLen;
+					_pBuff[_nLast] = 0;
+					return nLen;
+				}
+				return 0;
+			}
+
+			bool hasMsg()
+			{
+				//判断消息缓冲区的数据长度大于消息头netmsg_DataHeader长度
+				if (_nLast >= sizeof(netmsg_DataHeader))
+				{
+					//这时就可以知道当前消息的长度
+					netmsg_DataHeader* header = (netmsg_DataHeader*)_pBuff;
+					//判断消息缓冲区的数据长度大于消息长度
+					return _nLast >= header->dataLength;
+				}
+				return false;
+			}
+
+			inline bool needWrite()
+			{
+				return _nLast > 0;
+			}
+
+		private:
+			//第二缓冲区 发送缓冲区
+			char* _pBuff = nullptr;
+			//可以用链表或队列来管理缓冲数据块
+			//list<char*> _pBuffList;
+			//缓冲区的数据尾部位置，已有数据长度
+			int _nLast = 0;
+			//缓冲区总的空间大小，字节长度
+			int _nSize = 0;
+			//缓冲区写满次数计数
+			int _fullCount = 0;
+		};
+
+	}
+}
+#endif // !_CELL_BUFFER_HPP_
